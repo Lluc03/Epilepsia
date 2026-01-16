@@ -1,0 +1,212 @@
+Activant entorn virtual...
+Iniciant entrenament del model baseline CNN 1D...
+
+======================================================================
+🧠 CLASSIFICADOR D’EPILÈPSIA – DATASET CHB-MIT
+   Pipeline: Extractor de característiques → Classificador
+   Estratègia: Leave-One-Patient-Out (LOPO)
+======================================================================
+
+======================================================================
+ANÀLISIS DEL DATASET CHB-MIT
+======================================================================
+  Total pacients:       24
+  Pediàtrics:          23
+  Adults:              1
+
+  Total hores EEG:      158.9 h
+  Total mostres:       571,905
+  Crisis totals:       86,672 finestres (1444.5 min)
+  Ratio ictal/total:    15.155%
+======================================================================
+
+🔄 LOPO Split (Leave-One-Patient-Out):
+  📘 TRAIN: 23 pacientes
+     - Total horas: 141.4 h
+     - Crisis: 1181.6 min
+
+  📕 TEST: chb15
+     - Horas: 17.5 h
+     - Crisis: 262.9 min
+     - Muestras: 62,984
+
+======================================================================
+CARREGANT DADES DE PACIENTS
+======================================================================
+  ✓ chb01:  26,529 finestres (7.4h) | Seizure: 3,480 (58.0min)
+  ✓ chb02:   9,153 finestres (2.5h) | Seizure: 1,352 (22.5min)
+  ✓ chb03:  27,524 finestres (7.6h) | Seizure: 3,160 (52.7min)
+  ✓ chb04:  21,860 finestres (6.1h) | Seizure: 2,992 (49.9min)
+  ✓ chb05:  12,992 finestres (3.6h) | Seizure: 4,424 (73.7min)
+  ✓ chb06:  47,370 finestres (13.2h) | Seizure: 1,144 (19.1min)
+  ✓ chb07:  18,591 finestres (5.2h) | Seizure: 2,576 (42.9min)
+  ✓ chb08:  15,700 finestres (4.4h) | Seizure: 7,312 (121.9min)
+  ✓ chb09:  19,165 finestres (5.3h) | Seizure: 2,176 (36.3min)
+  ✓ chb10:  28,315 finestres (7.9h) | Seizure: 3,520 (58.7min)
+  ✓ chb11:  10,959 finestres (3.0h) | Seizure: 6,424 (107.1min)
+  ✓ chb12:  23,810 finestres (6.6h) | Seizure: 7,696 (128.3min)
+  ✓ chb13:  27,583 finestres (7.7h) | Seizure: 3,440 (57.3min)
+  ✓ chb14:  25,824 finestres (7.2h) | Seizure: 1,288 (21.5min)
+  ✓ chb16:  17,926 finestres (5.0h) | Seizure:   488 (8.1min)
+  ✓ chb17:  12,665 finestres (3.5h) | Seizure: 2,320 (38.7min)
+  ✓ chb18:  22,073 finestres (6.1h) | Seizure: 2,488 (41.5min)
+  ✓ chb19:  11,988 finestres (3.3h) | Seizure: 1,864 (31.1min)
+  ✓ chb20:  21,536 finestres (6.0h) | Seizure: 2,288 (38.1min)
+  ✓ chb21:  14,903 finestres (4.1h) | Seizure: 1,560 (26.0min)
+  ✓ chb22:  12,018 finestres (3.3h) | Seizure: 1,608 (26.8min)
+  ✓ chb23:  34,736 finestres (9.6h) | Seizure: 3,336 (55.6min)
+  ✓ chb24:  45,701 finestres (12.7h) | Seizure: 3,960 (66.0min)
+
+======================================================================
+⚖️  BALANCEO DE DATOS DE ENTRENAMIENTO
+======================================================================
+  📊 ANTES del balanceo:
+     - Normal (0):     438,025 (121.7h) | 86.1%
+     - Epilepsia (1):   70,896 (1181.6min) | 13.9%
+     - Total:          508,921 (141.4h)
+
+  📊 DESPUÉS del balanceo (mixed):
+     - Normal (0):      70,896 (19.7h) | 50.0%
+     - Epilepsia (1):   70,896 (1181.6min) | 50.0%
+     - Total:          141,792 (39.4h)
+======================================================================
+
+🔪 Split temporal (shuffle=False, val_ratio=0.15):
+   Train: ventanas [0 : 120524]
+   Val:   ventanas [120524 : 141792]
+
+📕 Cargando TEST:
+  ✓ chb15:  62,984 ventanas | Seizure: 15,776
+
+======================================================================
+📦 DATOS FINALES PARA ENTRENAMIENTO
+======================================================================
+
+  🔵 TRAIN: (120524, 21, 128)
+     - Normal (0):      60,270 (16.7h) | 50.0%
+     - Epilepsia (1):   60,254 (1004.2min) | 50.0%
+
+  🟢 VALIDATION: (21268, 21, 128)
+     - Normal (0):      10,626 | 50.0%
+     - Epilepsia (1):   10,642 | 50.0%
+
+  🔴 TEST (paciente no visto): (62984, 21, 128)
+     - Normal (0):      47,208 | 75.0%
+     - Epilepsia (1):   15,776 | 25.0%
+======================================================================
+
+
+======================================================================
+🏗️  ARQUITECTURA DEL MODEL
+======================================================================
+  Extractor de característiques:
+    - Paràmetres: 41,792
+    - Sortida: Característiques [batch, 2]
+
+  Classificador:
+    - Paràmetres: 8,578
+    - Sortida: Logits [batch, 2]
+
+  TOTAL: 50,370 paràmetres
+======================================================================
+
+======================================================================
+🚀 INICIANT ENTRENAMENT
+======================================================================
+  Èpoques: 30
+  Mida del batch: 256
+  Learning rate: 0.0005
+  Dispositiu: GPU
+======================================================================
+
+🖥️  Dispositiu d'entrenament: cuda
+Època 01 | TrainLoss=0.3534 | ValLoss=0.3083 | ValAcc=0.8758 | ValF1=0.8639
+Època 02 | TrainLoss=0.2452 | ValLoss=0.3972 | ValAcc=0.8450 | ValF1=0.8196
+Època 03 | TrainLoss=0.2144 | ValLoss=0.2609 | ValAcc=0.8922 | ValF1=0.8977
+Època 04 | TrainLoss=0.1958 | ValLoss=0.1874 | ValAcc=0.9309 | ValF1=0.9296
+Època 05 | TrainLoss=0.1800 | ValLoss=0.2539 | ValAcc=0.8978 | ValF1=0.8879
+Època 06 | TrainLoss=0.1684 | ValLoss=0.1683 | ValAcc=0.9396 | ValF1=0.9395
+Època 07 | TrainLoss=0.1560 | ValLoss=0.1644 | ValAcc=0.9406 | ValF1=0.9408
+Època 08 | TrainLoss=0.1469 | ValLoss=0.1547 | ValAcc=0.9436 | ValF1=0.9433
+Època 09 | TrainLoss=0.1384 | ValLoss=0.2556 | ValAcc=0.8974 | ValF1=0.9051
+Època 10 | TrainLoss=0.1305 | ValLoss=0.1402 | ValAcc=0.9480 | ValF1=0.9474
+Època 11 | TrainLoss=0.1236 | ValLoss=0.1680 | ValAcc=0.9381 | ValF1=0.9396
+Època 12 | TrainLoss=0.1171 | ValLoss=0.1909 | ValAcc=0.9244 | ValF1=0.9282
+Època 13 | TrainLoss=0.1097 | ValLoss=0.1478 | ValAcc=0.9455 | ValF1=0.9453
+Època 14 | TrainLoss=0.1046 | ValLoss=0.2619 | ValAcc=0.9123 | ValF1=0.9055
+Època 15 | TrainLoss=0.1000 | ValLoss=0.1257 | ValAcc=0.9550 | ValF1=0.9552
+Època 16 | TrainLoss=0.0957 | ValLoss=0.1813 | ValAcc=0.9341 | ValF1=0.9369
+Època 17 | TrainLoss=0.0921 | ValLoss=0.1841 | ValAcc=0.9309 | ValF1=0.9270
+Època 18 | TrainLoss=0.0882 | ValLoss=0.1480 | ValAcc=0.9460 | ValF1=0.9440
+Època 19 | TrainLoss=0.0835 | ValLoss=0.1345 | ValAcc=0.9501 | ValF1=0.9486
+Època 20 | TrainLoss=0.0806 | ValLoss=0.1530 | ValAcc=0.9411 | ValF1=0.9432
+Època 21 | TrainLoss=0.0767 | ValLoss=0.2494 | ValAcc=0.9187 | ValF1=0.9127
+Època 22 | TrainLoss=0.0748 | ValLoss=0.1150 | ValAcc=0.9592 | ValF1=0.9586
+Època 23 | TrainLoss=0.0703 | ValLoss=0.1233 | ValAcc=0.9554 | ValF1=0.9561
+Època 24 | TrainLoss=0.0688 | ValLoss=0.1146 | ValAcc=0.9606 | ValF1=0.9606
+Època 25 | TrainLoss=0.0657 | ValLoss=0.1123 | ValAcc=0.9603 | ValF1=0.9599
+Època 26 | TrainLoss=0.0633 | ValLoss=0.1224 | ValAcc=0.9607 | ValF1=0.9610
+Època 27 | TrainLoss=0.0624 | ValLoss=0.3889 | ValAcc=0.9027 | ValF1=0.8936
+Època 28 | TrainLoss=0.0597 | ValLoss=0.2955 | ValAcc=0.9083 | ValF1=0.9152
+Època 29 | TrainLoss=0.0591 | ValLoss=0.1118 | ValAcc=0.9640 | ValF1=0.9642
+Època 30 | TrainLoss=0.0550 | ValLoss=0.1702 | ValAcc=0.9460 | ValF1=0.9440
+
+======================================================================
+📊 AVALUACIÓ EN EL CONJUNT DE TEST (PACIENT NO VIST)
+======================================================================
+
+1️⃣ EVALUACIÓN CON THRESHOLD POR DEFECTO (0.5):
+  Accuracy:       0.7585
+  F1-Score:       0.1093
+  AUC:            0.6094
+  Matriu de confusió:
+    [[46838   370]
+ [14843   933]]
+
+2️⃣ OPTIMIZANDO THRESHOLD EN VALIDACIÓN:
+
+======================================================================
+🔍 BUSCANDO THRESHOLD ÓPTIMO (criterio: f1_min_sens)
+======================================================================
+
+✅ THRESHOLD ÓPTIMO ENCONTRADO:
+  Threshold:      0.100
+  Accuracy:       0.9606
+  F1-Score:       0.9605
+  Sensibilidad:   0.9555
+  Especificidad:  0.9658
+
+  Matriu de confusió:
+    [[10263   363]
+ [  474 10168]]
+======================================================================
+
+
+3️⃣ EVALUACIÓN EN TEST CON THRESHOLD OPTIMIZADO (0.100):
+
+✅ RESULTATS FINALS (THRESHOLD OPTIMITZAT):
+  Pacient de test: chb15
+  Threshold:      0.100
+  Accuracy:       0.7625
+  F1-Score:       0.1986
+  AUC:            0.6094
+  Sensibilidad:   0.1175 ⭐
+  Especificitat:  0.9780
+
+  Matriu de confusió:
+    [[46169  1039]
+ [13922  1854]]
+
+📈 COMPARACIÓN THRESHOLD 0.5 vs 0.100:
+  Crisis detectadas:
+    - Threshold 0.5:      933 / 15,776 (5.9%)
+    - Threshold 0.10: 1,854 / 15,776 (11.8%)
+  Falsos positius:
+    - Threshold 0.5:      370
+    - Threshold 0.10: 1,039
+
+======================================================================
+💾 Resultats desats a: results/lopo_20260106_1032
+======================================================================
+
+Entrenament finalitzat.

@@ -1,0 +1,163 @@
+========================================
+🧠 LSTM-LOPO TEMPORAL - INICIO
+========================================
+Fecha: dom 11 ene 2026 21:03:38 CET
+Node: etse-75-51
+GPU: 0
+
+Activant entorn virtual...
+
+📋 Configuración:
+  - Modelo: LSTM (2 capas, hidden_size=128)
+  - Pacientes test: chb10, chb04
+  - Estrategia: LOPO con temporalidad preservada
+  - Balance: Temporal undersample (sin shuffle)
+
+🚀 Iniciant LSTM-LOPO...
+
+======================================================================
+🧠 LSTM SEIZURE DETECTION - LOPO TEMPORAL
+   Modelo: LSTM bidireccional con atención temporal
+   Estrategia: Leave-One-Patient-Out con orden temporal preservado
+   Pacientes: chb10, chb04
+======================================================================
+
+======================================================================
+📊 ANÁLISIS DEL DATASET CHB-MIT
+======================================================================
+  Total pacientes:       24
+  Pediátricos:          23
+  Adultos:              1
+
+  Total horas EEG:      158.9 h
+  Total muestras:       571,905
+  Crisis totales:       86,672 ventanas (1444.5 min)
+  Ratio ictal/total:    15.155%
+======================================================================
+
+
+📋 PACIENTES SELECCIONADOS PARA LOPO:
+  Test 1: chb10 - 3,520 crisis (58.7 min)
+  Test 2: chb04 - 2,992 crisis (49.9 min)
+
+======================================================================
+🔄 TEST PATIENT 1/2: chb10
+======================================================================
+
+  TRAIN: 23 pacientes (excluyendo chb10)
+  TEST:  chb10
+
+======================================================================
+📂 CARGANDO DATOS - LOPO TEMPORAL CON TRANSICIONES
+======================================================================
+  ✓ chb01:  26,529 ventanas (7.4h) | Seizure: 3,480 (58.0min)
+  ✓ chb02:   9,153 ventanas (2.5h) | Seizure: 1,352 (22.5min)
+  ✓ chb03:  27,524 ventanas (7.6h) | Seizure: 3,160 (52.7min)
+  ✓ chb04:  21,860 ventanas (6.1h) | Seizure: 2,992 (49.9min)
+  ✓ chb05:  12,992 ventanas (3.6h) | Seizure: 4,424 (73.7min)
+  ✓ chb06:  47,370 ventanas (13.2h) | Seizure: 1,144 (19.1min)
+  ✓ chb07:  18,591 ventanas (5.2h) | Seizure: 2,576 (42.9min)
+  ✓ chb08:  15,700 ventanas (4.4h) | Seizure: 7,312 (121.9min)
+  ✓ chb09:  19,165 ventanas (5.3h) | Seizure: 2,176 (36.3min)
+  ✓ chb11:  10,959 ventanas (3.0h) | Seizure: 6,424 (107.1min)
+  ✓ chb12:  23,810 ventanas (6.6h) | Seizure: 7,696 (128.3min)
+  ✓ chb13:  27,583 ventanas (7.7h) | Seizure: 3,440 (57.3min)
+  ✓ chb14:  25,824 ventanas (7.2h) | Seizure: 1,288 (21.5min)
+  ✓ chb15:  62,984 ventanas (17.5h) | Seizure: 15,776 (262.9min)
+  ✓ chb16:  17,926 ventanas (5.0h) | Seizure:   488 (8.1min)
+  ✓ chb17:  12,665 ventanas (3.5h) | Seizure: 2,320 (38.7min)
+  ✓ chb18:  22,073 ventanas (6.1h) | Seizure: 2,488 (41.5min)
+  ✓ chb19:  11,988 ventanas (3.3h) | Seizure: 1,864 (31.1min)
+  ✓ chb20:  21,536 ventanas (6.0h) | Seizure: 2,288 (38.1min)
+  ✓ chb21:  14,903 ventanas (4.1h) | Seizure: 1,560 (26.0min)
+  ✓ chb22:  12,018 ventanas (3.3h) | Seizure: 1,608 (26.8min)
+  ✓ chb23:  34,736 ventanas (9.6h) | Seizure: 3,336 (55.6min)
+  ✓ chb24:  45,701 ventanas (12.7h) | Seizure: 3,960 (66.0min)
+
+  📊 TRAIN concatenado: (543590, 21, 128)
+     - Normal: 460,438 | Seizure: 83,152
+
+======================================================================
+⚖️  BALANCEO CON BLOQUES CONTIGUOS + TRANSICIONES
+======================================================================
+  📊 ANTES del balanceo:
+     - Normal (0):     460,438 (127.9h) | 84.7%
+     - Epilepsia (1):   83,152 (1385.9min) | 15.3%
+
+  🔍 Análisis de segmentos normales:
+     - Segmentos contiguos: 129
+     - Longitud promedio: 3569.3 ventanas
+
+  🔄 Transiciones detectadas:
+     - Inicios de crisis (0→1): 129
+     - Finales de crisis (1→0): 128
+     - Segmentos con/cerca transiciones: 129/129
+
+  ✅ Segmentos seleccionados:
+     - Total segmentos: 53
+     - Con transiciones: 52
+     - Sin transiciones: 1
+     - Ventanas totales: 249,456
+
+  📊 DESPUÉS del balanceo:
+     - Normal (0):     249,456 (69.3h) | 75.0%
+     - Epilepsia (1):   83,152 (1385.9min) | 25.0%
+     - Total:          332,608 (92.4h)
+
+  🔗 Continuidad y transiciones:
+     - Bloques continuos: 77
+     - Gaps en secuencia: 76
+     - Transiciones capturadas: 106
+======================================================================
+
+
+🔪 Split temporal ESTRICTO (val_ratio=0.15):
+   Train: ventanas [0 : 282717] (primeras en el tiempo)
+   Val:   ventanas [282717 : 332608] (últimas en el tiempo)
+   ⚠️  SIN SHUFFLE - orden temporal respetado
+
+📕 Cargando TEST:
+  ✓ chb10:  28,315 ventanas | Seizure: 3,520
+
+======================================================================
+📦 DATOS FINALES (ORDEN TEMPORAL + TRANSICIONES)
+======================================================================
+
+  🔵 TRAIN: (282717, 21, 128)
+     - Normal (0):     205,965 | 72.9%
+     - Epilepsia (1):   76,752 | 27.1%
+
+  🟢 VALIDATION: (49891, 21, 128)
+     - Normal (0):      43,491 | 87.2%
+     - Epilepsia (1):    6,400 | 12.8%
+
+  🔴 TEST (paciente no visto): (28315, 21, 128)
+     - Normal (0):      24,795 | 87.6%
+     - Epilepsia (1):    3,520 | 12.4%
+======================================================================
+
+
+  📦 DATOS CARGADOS:
+     TRAIN: (282717, 21, 128)
+     VAL:   (49891, 21, 128)
+     TEST:  (28315, 21, 128)
+
+  🏗️  ARQUITECTURA LSTM (MEJORADA):
+     - Input: [batch, 21, 128]
+     - LSTM hidden_size: 128
+     - LSTM layers: 2
+     - LSTM dropout: 0.4
+     - Classifier: 128 -> 64 -> 32 -> 2 (con dropout 0.5 y 0.4)
+     - Output: [batch, 2]
+
+  ⚖️  Class weights calculados:
+     Normal (0): 1.00
+     Seizure (1): 3.22
+     Ratio de peso: 3.22x (optimizado para F1)
+
+  🏋️  INICIANDO ENTRENAMIENTO...
+
+========================================
+✅ LSTM-LOPO TEMPORAL - FINALITZAT
+========================================
+Fecha: dom 11 ene 2026 21:10:44 CET

@@ -1,0 +1,523 @@
+Activant entorn virtual...
+Iniciant K-Fold fusion LOPO...
+
+======================================================================
+🧠 CLASSIFICADOR D'EPILÈPSIA – K-FOLD LOPO
+   Pipeline: Extractor de característiques → Classificador
+   Estratègia: 5-Fold Leave-One-Patient-Out
+======================================================================
+
+======================================================================
+📊 ANÁLISIS DEL DATASET CHB-MIT
+======================================================================
+  Total pacientes:       24
+  Pediátricos:          23
+  Adultos:              1
+
+  Total horas EEG:      158.9 h
+  Total muestras:       571,905
+  Crisis totales:       86,672 ventanas (1444.5 min)
+  Ratio ictal/total:    15.155%
+======================================================================
+
+
+📋 PACIENTES SELECCIONADOS PARA K-FOLD:
+  Fold 1: chb15 - 15,776 crisis (262.9 min)
+  Fold 2: chb10 - 3,520 crisis (58.7 min)
+  Fold 3: chb04 - 2,992 crisis (49.9 min)
+  Fold 4: chb09 - 2,176 crisis (36.3 min)
+  Fold 5: chb21 - 1,560 crisis (26.0 min)
+
+======================================================================
+🔄 FOLD 1/5 - TEST PATIENT: chb15
+======================================================================
+
+  TRAIN: 23 pacientes
+  TEST:  chb15
+
+======================================================================
+⚖️  BALANCEO DE DATOS DE ENTRENAMIENTO
+======================================================================
+  📊 ANTES del balanceo:
+     - Normal (0):     438,025 (121.7h) | 86.1%
+     - Epilepsia (1):   70,896 (1181.6min) | 13.9%
+     - Total:          508,921 (141.4h)
+
+  📊 DESPUÉS del balanceo (mixed):
+     - Normal (0):      70,896 (19.7h) | 50.0%
+     - Epilepsia (1):   70,896 (1181.6min) | 50.0%
+     - Total:          141,792 (39.4h)
+======================================================================
+
+🔪 Split temporal (shuffle=False, val_ratio=0.15):
+   Train: ventanas [0 : 120524]
+   Val:   ventanas [120524 : 141792]
+
+  📦 DATOS:
+     TRAIN: (120524, 21, 128)
+     VAL:   (21268, 21, 128)
+     TEST:  (62984, 21, 128)
+
+  ⚖️  Class weights calculados:
+     Normal (0): 1.00
+     Seizure (1): 3.00
+🖥️  Dispositiu d'entrenament: cuda
+⚖️  Class weights: [1.        2.9952247]
+Època 01 | TrainLoss=0.4335 | ValLoss=0.4131 | ValAcc=0.6233 | ValF1=0.7208
+Època 02 | TrainLoss=0.3507 | ValLoss=0.3447 | ValAcc=0.7917 | ValF1=0.8110
+Època 03 | TrainLoss=0.3287 | ValLoss=0.3331 | ValAcc=0.7541 | ValF1=0.7932
+Època 04 | TrainLoss=0.3107 | ValLoss=0.3121 | ValAcc=0.8337 | ValF1=0.8422
+Època 05 | TrainLoss=0.3002 | ValLoss=0.3203 | ValAcc=0.8493 | ValF1=0.8506
+Època 06 | TrainLoss=0.2909 | ValLoss=0.3005 | ValAcc=0.8492 | ValF1=0.8535
+Època 07 | TrainLoss=0.2830 | ValLoss=0.3484 | ValAcc=0.7183 | ValF1=0.7740
+Època 08 | TrainLoss=0.2769 | ValLoss=0.2864 | ValAcc=0.8146 | ValF1=0.8349
+Època 09 | TrainLoss=0.2721 | ValLoss=0.3060 | ValAcc=0.7725 | ValF1=0.8079
+Època 10 | TrainLoss=0.2676 | ValLoss=0.2822 | ValAcc=0.8504 | ValF1=0.8587
+Època 11 | TrainLoss=0.2624 | ValLoss=0.2845 | ValAcc=0.8092 | ValF1=0.8328
+Època 12 | TrainLoss=0.2595 | ValLoss=0.2684 | ValAcc=0.8649 | ValF1=0.8696
+Època 13 | TrainLoss=0.2549 | ValLoss=0.2596 | ValAcc=0.8345 | ValF1=0.8501
+Època 14 | TrainLoss=0.2519 | ValLoss=0.2810 | ValAcc=0.8694 | ValF1=0.8711
+Època 15 | TrainLoss=0.2484 | ValLoss=0.2685 | ValAcc=0.8688 | ValF1=0.8716
+Època 16 | TrainLoss=0.2458 | ValLoss=0.2538 | ValAcc=0.8643 | ValF1=0.8710
+Època 17 | TrainLoss=0.2425 | ValLoss=0.2727 | ValAcc=0.8039 | ValF1=0.8298
+Època 18 | TrainLoss=0.2393 | ValLoss=0.2645 | ValAcc=0.8233 | ValF1=0.8429
+Època 19 | TrainLoss=0.2378 | ValLoss=0.2671 | ValAcc=0.8093 | ValF1=0.8337
+Època 20 | TrainLoss=0.2335 | ValLoss=0.2435 | ValAcc=0.8543 | ValF1=0.8651
+Època 21 | TrainLoss=0.2305 | ValLoss=0.2461 | ValAcc=0.8351 | ValF1=0.8520
+Època 22 | TrainLoss=0.2300 | ValLoss=0.2390 | ValAcc=0.8626 | ValF1=0.8718
+Època 23 | TrainLoss=0.2274 | ValLoss=0.2400 | ValAcc=0.8785 | ValF1=0.8823
+Època 24 | TrainLoss=0.2248 | ValLoss=0.2392 | ValAcc=0.8418 | ValF1=0.8566
+Època 25 | TrainLoss=0.2239 | ValLoss=0.2674 | ValAcc=0.8703 | ValF1=0.8739
+Època 26 | TrainLoss=0.2209 | ValLoss=0.2270 | ValAcc=0.8649 | ValF1=0.8744
+Època 27 | TrainLoss=0.2175 | ValLoss=0.2445 | ValAcc=0.8764 | ValF1=0.8813
+Època 28 | TrainLoss=0.2164 | ValLoss=0.2296 | ValAcc=0.8879 | ValF1=0.8907
+Època 29 | TrainLoss=0.2159 | ValLoss=0.2304 | ValAcc=0.8548 | ValF1=0.8666
+Època 30 | TrainLoss=0.2122 | ValLoss=0.2287 | ValAcc=0.8647 | ValF1=0.8741
+✅ Restored best model (val_loss=0.2270)
+
+======================================================================
+🔍 BUSCANDO THRESHOLD ÓPTIMO (criterio: f1_min_sens)
+======================================================================
+
+✅ THRESHOLD ÓPTIMO ENCONTRADO:
+  Threshold:      0.771
+  Accuracy:       0.8906
+  F1-Score:       0.8889
+  Sensibilidad:   0.8790
+  Especificidad:  0.9022
+
+  Matriu de confusió:
+    [[9637 1045]
+ [1281 9305]]
+======================================================================
+
+
+✅ RESULTATS FOLD 1:
+  Pacient: chb15
+  Threshold: 0.771
+  Accuracy:      0.7626
+  F1-Score:      0.1378
+  Sensibilitat:  0.0757 ⭐
+  Especificitat: 0.9921
+
+  Matriu de confusió:
+    [[46835   373]
+ [14581  1195]]
+
+======================================================================
+🔄 FOLD 2/5 - TEST PATIENT: chb10
+======================================================================
+
+  TRAIN: 23 pacientes
+  TEST:  chb10
+
+======================================================================
+⚖️  BALANCEO DE DATOS DE ENTRENAMIENTO
+======================================================================
+  📊 ANTES del balanceo:
+     - Normal (0):     460,438 (127.9h) | 84.7%
+     - Epilepsia (1):   83,152 (1385.9min) | 15.3%
+     - Total:          543,590 (151.0h)
+
+  📊 DESPUÉS del balanceo (mixed):
+     - Normal (0):      72,000 (20.0h) | 50.0%
+     - Epilepsia (1):   72,000 (1200.0min) | 50.0%
+     - Total:          144,000 (40.0h)
+======================================================================
+
+🔪 Split temporal (shuffle=False, val_ratio=0.15):
+   Train: ventanas [0 : 122400]
+   Val:   ventanas [122400 : 144000]
+
+  📦 DATOS:
+     TRAIN: (122400, 21, 128)
+     VAL:   (21600, 21, 128)
+     TEST:  (28315, 21, 128)
+
+  ⚖️  Class weights calculados:
+     Normal (0): 1.00
+     Seizure (1): 2.99
+🖥️  Dispositiu d'entrenament: cuda
+⚖️  Class weights: [1.        2.9942212]
+Època 01 | TrainLoss=0.4745 | ValLoss=0.4130 | ValAcc=0.6980 | ValF1=0.7535
+Època 02 | TrainLoss=0.3788 | ValLoss=0.3627 | ValAcc=0.7899 | ValF1=0.8077
+Època 03 | TrainLoss=0.3459 | ValLoss=0.3375 | ValAcc=0.7998 | ValF1=0.8175
+Època 04 | TrainLoss=0.3249 | ValLoss=0.3172 | ValAcc=0.7767 | ValF1=0.8074
+Època 05 | TrainLoss=0.3099 | ValLoss=0.2971 | ValAcc=0.8032 | ValF1=0.8252
+Època 06 | TrainLoss=0.2961 | ValLoss=0.2941 | ValAcc=0.7921 | ValF1=0.8191
+Època 07 | TrainLoss=0.2872 | ValLoss=0.2782 | ValAcc=0.8256 | ValF1=0.8412
+Època 08 | TrainLoss=0.2792 | ValLoss=0.2808 | ValAcc=0.8086 | ValF1=0.8308
+Època 09 | TrainLoss=0.2717 | ValLoss=0.2691 | ValAcc=0.8189 | ValF1=0.8386
+Època 10 | TrainLoss=0.2662 | ValLoss=0.2777 | ValAcc=0.8642 | ValF1=0.8669
+Època 11 | TrainLoss=0.2602 | ValLoss=0.2743 | ValAcc=0.8497 | ValF1=0.8573
+Època 12 | TrainLoss=0.2551 | ValLoss=0.2606 | ValAcc=0.8494 | ValF1=0.8590
+Època 13 | TrainLoss=0.2510 | ValLoss=0.2481 | ValAcc=0.8561 | ValF1=0.8658
+Època 14 | TrainLoss=0.2476 | ValLoss=0.2480 | ValAcc=0.8598 | ValF1=0.8678
+Època 15 | TrainLoss=0.2430 | ValLoss=0.2414 | ValAcc=0.8607 | ValF1=0.8696
+Època 16 | TrainLoss=0.2391 | ValLoss=0.2377 | ValAcc=0.8663 | ValF1=0.8736
+Època 17 | TrainLoss=0.2365 | ValLoss=0.2445 | ValAcc=0.8342 | ValF1=0.8517
+Època 18 | TrainLoss=0.2334 | ValLoss=0.2311 | ValAcc=0.8565 | ValF1=0.8676
+Època 19 | TrainLoss=0.2304 | ValLoss=0.2283 | ValAcc=0.8559 | ValF1=0.8673
+Època 20 | TrainLoss=0.2275 | ValLoss=0.2317 | ValAcc=0.8731 | ValF1=0.8795
+Època 21 | TrainLoss=0.2244 | ValLoss=0.2281 | ValAcc=0.8512 | ValF1=0.8645
+Època 22 | TrainLoss=0.2228 | ValLoss=0.2404 | ValAcc=0.8731 | ValF1=0.8787
+Època 23 | TrainLoss=0.2210 | ValLoss=0.2235 | ValAcc=0.8629 | ValF1=0.8732
+Època 24 | TrainLoss=0.2180 | ValLoss=0.2182 | ValAcc=0.8650 | ValF1=0.8750
+Època 25 | TrainLoss=0.2156 | ValLoss=0.2165 | ValAcc=0.8676 | ValF1=0.8773
+Època 26 | TrainLoss=0.2141 | ValLoss=0.2183 | ValAcc=0.8726 | ValF1=0.8805
+Època 27 | TrainLoss=0.2132 | ValLoss=0.2175 | ValAcc=0.8837 | ValF1=0.8888
+Època 28 | TrainLoss=0.2096 | ValLoss=0.2181 | ValAcc=0.8616 | ValF1=0.8731
+Època 29 | TrainLoss=0.2085 | ValLoss=0.2117 | ValAcc=0.8774 | ValF1=0.8847
+Època 30 | TrainLoss=0.2071 | ValLoss=0.2112 | ValAcc=0.8803 | ValF1=0.8871
+✅ Restored best model (val_loss=0.2112)
+
+======================================================================
+🔍 BUSCANDO THRESHOLD ÓPTIMO (criterio: f1_min_sens)
+======================================================================
+
+✅ THRESHOLD ÓPTIMO ENCONTRADO:
+  Threshold:      0.666
+  Accuracy:       0.8986
+  F1-Score:       0.8986
+  Sensibilidad:   0.9035
+  Especificidad:  0.8937
+
+  Matriu de confusió:
+    [[9705 1154]
+ [1036 9705]]
+======================================================================
+
+
+✅ RESULTATS FOLD 2:
+  Pacient: chb10
+  Threshold: 0.666
+  Accuracy:      0.6781
+  F1-Score:      0.4243
+  Sensibilitat:  0.9540 ⭐
+  Especificitat: 0.6390
+
+  Matriu de confusió:
+    [[15843  8952]
+ [  162  3358]]
+
+======================================================================
+🔄 FOLD 3/5 - TEST PATIENT: chb04
+======================================================================
+
+  TRAIN: 23 pacientes
+  TEST:  chb04
+
+======================================================================
+⚖️  BALANCEO DE DATOS DE ENTRENAMIENTO
+======================================================================
+  📊 ANTES del balanceo:
+     - Normal (0):     466,365 (129.5h) | 84.8%
+     - Epilepsia (1):   83,680 (1394.7min) | 15.2%
+     - Total:          550,045 (152.8h)
+
+  📊 DESPUÉS del balanceo (mixed):
+     - Normal (0):      72,000 (20.0h) | 50.0%
+     - Epilepsia (1):   72,000 (1200.0min) | 50.0%
+     - Total:          144,000 (40.0h)
+======================================================================
+
+🔪 Split temporal (shuffle=False, val_ratio=0.15):
+   Train: ventanas [0 : 122400]
+   Val:   ventanas [122400 : 144000]
+
+  📦 DATOS:
+     TRAIN: (122400, 21, 128)
+     VAL:   (21600, 21, 128)
+     TEST:  (21860, 21, 128)
+
+  ⚖️  Class weights calculados:
+     Normal (0): 1.00
+     Seizure (1): 3.01
+🖥️  Dispositiu d'entrenament: cuda
+⚖️  Class weights: [1.        3.0107052]
+Època 01 | TrainLoss=0.4673 | ValLoss=0.3915 | ValAcc=0.6867 | ValF1=0.7525
+Època 02 | TrainLoss=0.3681 | ValLoss=0.3416 | ValAcc=0.7790 | ValF1=0.8050
+Època 03 | TrainLoss=0.3352 | ValLoss=0.3216 | ValAcc=0.8006 | ValF1=0.8206
+Època 04 | TrainLoss=0.3160 | ValLoss=0.3088 | ValAcc=0.8005 | ValF1=0.8232
+Època 05 | TrainLoss=0.3006 | ValLoss=0.3047 | ValAcc=0.8253 | ValF1=0.8395
+Època 06 | TrainLoss=0.2897 | ValLoss=0.2941 | ValAcc=0.7977 | ValF1=0.8240
+Època 07 | TrainLoss=0.2801 | ValLoss=0.2781 | ValAcc=0.8410 | ValF1=0.8530
+Època 08 | TrainLoss=0.2731 | ValLoss=0.2722 | ValAcc=0.8285 | ValF1=0.8461
+Època 09 | TrainLoss=0.2663 | ValLoss=0.2678 | ValAcc=0.8485 | ValF1=0.8597
+Època 10 | TrainLoss=0.2587 | ValLoss=0.2642 | ValAcc=0.8524 | ValF1=0.8628
+Època 11 | TrainLoss=0.2547 | ValLoss=0.2565 | ValAcc=0.8517 | ValF1=0.8637
+Època 12 | TrainLoss=0.2489 | ValLoss=0.2577 | ValAcc=0.8648 | ValF1=0.8722
+Època 13 | TrainLoss=0.2452 | ValLoss=0.2492 | ValAcc=0.8498 | ValF1=0.8631
+Època 14 | TrainLoss=0.2408 | ValLoss=0.2494 | ValAcc=0.8688 | ValF1=0.8759
+Època 15 | TrainLoss=0.2380 | ValLoss=0.2471 | ValAcc=0.8414 | ValF1=0.8577
+Època 16 | TrainLoss=0.2337 | ValLoss=0.2422 | ValAcc=0.8457 | ValF1=0.8609
+Època 17 | TrainLoss=0.2307 | ValLoss=0.2482 | ValAcc=0.8795 | ValF1=0.8838
+Època 18 | TrainLoss=0.2265 | ValLoss=0.2374 | ValAcc=0.8548 | ValF1=0.8674
+Època 19 | TrainLoss=0.2253 | ValLoss=0.2384 | ValAcc=0.8749 | ValF1=0.8816
+Època 20 | TrainLoss=0.2219 | ValLoss=0.2307 | ValAcc=0.8606 | ValF1=0.8721
+Època 21 | TrainLoss=0.2210 | ValLoss=0.2310 | ValAcc=0.8667 | ValF1=0.8764
+Època 22 | TrainLoss=0.2171 | ValLoss=0.2310 | ValAcc=0.8771 | ValF1=0.8838
+Època 23 | TrainLoss=0.2154 | ValLoss=0.2291 | ValAcc=0.8557 | ValF1=0.8691
+Època 24 | TrainLoss=0.2128 | ValLoss=0.2271 | ValAcc=0.8624 | ValF1=0.8738
+Època 25 | TrainLoss=0.2117 | ValLoss=0.2264 | ValAcc=0.8651 | ValF1=0.8758
+Època 26 | TrainLoss=0.2094 | ValLoss=0.2268 | ValAcc=0.8561 | ValF1=0.8697
+Època 27 | TrainLoss=0.2078 | ValLoss=0.2243 | ValAcc=0.8662 | ValF1=0.8773
+Època 28 | TrainLoss=0.2067 | ValLoss=0.2272 | ValAcc=0.8840 | ValF1=0.8891
+Època 29 | TrainLoss=0.2041 | ValLoss=0.2251 | ValAcc=0.8565 | ValF1=0.8706
+Època 30 | TrainLoss=0.2026 | ValLoss=0.2245 | ValAcc=0.8758 | ValF1=0.8841
+✅ Restored best model (val_loss=0.2243)
+
+======================================================================
+🔍 BUSCANDO THRESHOLD ÓPTIMO (criterio: f1_min_sens)
+======================================================================
+
+✅ THRESHOLD ÓPTIMO ENCONTRADO:
+  Threshold:      0.666
+  Accuracy:       0.8896
+  F1-Score:       0.8915
+  Sensibilidad:   0.8982
+  Especificidad:  0.8809
+
+  Matriu de confusió:
+    [[9418 1273]
+ [1111 9798]]
+======================================================================
+
+
+✅ RESULTATS FOLD 3:
+  Pacient: chb04
+  Threshold: 0.666
+  Accuracy:      0.8502
+  F1-Score:      0.5640
+  Sensibilitat:  0.7079 ⭐
+  Especificitat: 0.8728
+
+  Matriu de confusió:
+    [[16468  2400]
+ [  874  2118]]
+
+======================================================================
+🔄 FOLD 4/5 - TEST PATIENT: chb09
+======================================================================
+
+  TRAIN: 23 pacientes
+  TEST:  chb09
+
+======================================================================
+⚖️  BALANCEO DE DATOS DE ENTRENAMIENTO
+======================================================================
+  📊 ANTES del balanceo:
+     - Normal (0):     468,244 (130.1h) | 84.7%
+     - Epilepsia (1):   84,496 (1408.3min) | 15.3%
+     - Total:          552,740 (153.5h)
+
+  📊 DESPUÉS del balanceo (mixed):
+     - Normal (0):      72,000 (20.0h) | 50.0%
+     - Epilepsia (1):   72,000 (1200.0min) | 50.0%
+     - Total:          144,000 (40.0h)
+======================================================================
+
+🔪 Split temporal (shuffle=False, val_ratio=0.15):
+   Train: ventanas [0 : 122400]
+   Val:   ventanas [122400 : 144000]
+
+  📦 DATOS:
+     TRAIN: (122400, 21, 128)
+     VAL:   (21600, 21, 128)
+     TEST:  (19165, 21, 128)
+
+  ⚖️  Class weights calculados:
+     Normal (0): 1.00
+     Seizure (1): 3.01
+🖥️  Dispositiu d'entrenament: cuda
+⚖️  Class weights: [1.      3.01228]
+Època 01 | TrainLoss=0.4471 | ValLoss=0.4011 | ValAcc=0.6602 | ValF1=0.7393
+Època 02 | TrainLoss=0.3742 | ValLoss=0.8285 | ValAcc=0.5243 | ValF1=0.6792
+Època 03 | TrainLoss=0.3477 | ValLoss=0.3502 | ValAcc=0.8126 | ValF1=0.8253
+Època 04 | TrainLoss=0.3266 | ValLoss=0.4912 | ValAcc=0.5852 | ValF1=0.7054
+Època 05 | TrainLoss=0.3106 | ValLoss=0.4667 | ValAcc=0.6404 | ValF1=0.7331
+Època 06 | TrainLoss=0.2975 | ValLoss=0.2903 | ValAcc=0.8144 | ValF1=0.8342
+Època 07 | TrainLoss=0.2872 | ValLoss=0.2990 | ValAcc=0.7667 | ValF1=0.8058
+Època 08 | TrainLoss=0.2782 | ValLoss=0.2824 | ValAcc=0.8511 | ValF1=0.8600
+Època 09 | TrainLoss=0.2714 | ValLoss=0.2690 | ValAcc=0.8374 | ValF1=0.8513
+Època 10 | TrainLoss=0.2656 | ValLoss=0.3172 | ValAcc=0.7538 | ValF1=0.7969
+Època 11 | TrainLoss=0.2597 | ValLoss=0.2719 | ValAcc=0.8652 | ValF1=0.8697
+Època 12 | TrainLoss=0.2557 | ValLoss=0.3091 | ValAcc=0.7619 | ValF1=0.8036
+Època 13 | TrainLoss=0.2497 | ValLoss=0.2890 | ValAcc=0.7753 | ValF1=0.8124
+Època 14 | TrainLoss=0.2462 | ValLoss=0.2875 | ValAcc=0.8800 | ValF1=0.8785
+
+⚠️  Early stopping triggered at epoch 14
+✅ Restored best model (val_loss=0.2690)
+
+======================================================================
+🔍 BUSCANDO THRESHOLD ÓPTIMO (criterio: f1_min_sens)
+======================================================================
+
+✅ THRESHOLD ÓPTIMO ENCONTRADO:
+  Threshold:      0.447
+  Accuracy:       0.8805
+  F1-Score:       0.8810
+  Sensibilidad:   0.8743
+  Especificidad:  0.8868
+
+  Matriu de confusió:
+    [[9467 1208]
+ [1373 9552]]
+======================================================================
+
+
+✅ RESULTATS FOLD 4:
+  Pacient: chb09
+  Threshold: 0.447
+  Accuracy:      0.2856
+  F1-Score:      0.2412
+  Sensibilitat:  1.0000 ⭐
+  Especificitat: 0.1941
+
+  Matriu de confusió:
+    [[ 3298 13691]
+ [    0  2176]]
+
+======================================================================
+🔄 FOLD 5/5 - TEST PATIENT: chb21
+======================================================================
+
+  TRAIN: 23 pacientes
+  TEST:  chb21
+
+======================================================================
+⚖️  BALANCEO DE DATOS DE ENTRENAMIENTO
+======================================================================
+  📊 ANTES del balanceo:
+     - Normal (0):     471,890 (131.1h) | 84.7%
+     - Epilepsia (1):   85,112 (1418.5min) | 15.3%
+     - Total:          557,002 (154.7h)
+
+  📊 DESPUÉS del balanceo (mixed):
+     - Normal (0):      72,000 (20.0h) | 50.0%
+     - Epilepsia (1):   72,000 (1200.0min) | 50.0%
+     - Total:          144,000 (40.0h)
+======================================================================
+
+🔪 Split temporal (shuffle=False, val_ratio=0.15):
+   Train: ventanas [0 : 122400]
+   Val:   ventanas [122400 : 144000]
+
+  📦 DATOS:
+     TRAIN: (122400, 21, 128)
+     VAL:   (21600, 21, 128)
+     TEST:  (14903, 21, 128)
+
+  ⚖️  Class weights calculados:
+     Normal (0): 1.00
+     Seizure (1): 3.01
+🖥️  Dispositiu d'entrenament: cuda
+⚖️  Class weights: [1.       3.011788]
+Època 01 | TrainLoss=0.4603 | ValLoss=0.3724 | ValAcc=0.7269 | ValF1=0.7734
+Època 02 | TrainLoss=0.3586 | ValLoss=0.3333 | ValAcc=0.7602 | ValF1=0.7962
+Època 03 | TrainLoss=0.3317 | ValLoss=0.3196 | ValAcc=0.7794 | ValF1=0.8087
+Època 04 | TrainLoss=0.3173 | ValLoss=0.3080 | ValAcc=0.8122 | ValF1=0.8295
+Època 05 | TrainLoss=0.3068 | ValLoss=0.3019 | ValAcc=0.8169 | ValF1=0.8337
+Època 06 | TrainLoss=0.2980 | ValLoss=0.2890 | ValAcc=0.8237 | ValF1=0.8408
+Època 07 | TrainLoss=0.2900 | ValLoss=0.2853 | ValAcc=0.8268 | ValF1=0.8430
+Època 08 | TrainLoss=0.2835 | ValLoss=0.2807 | ValAcc=0.8285 | ValF1=0.8444
+Època 09 | TrainLoss=0.2775 | ValLoss=0.2707 | ValAcc=0.8374 | ValF1=0.8519
+Època 10 | TrainLoss=0.2731 | ValLoss=0.2678 | ValAcc=0.8324 | ValF1=0.8490
+Època 11 | TrainLoss=0.2686 | ValLoss=0.2654 | ValAcc=0.8397 | ValF1=0.8541
+Època 12 | TrainLoss=0.2644 | ValLoss=0.2611 | ValAcc=0.8357 | ValF1=0.8521
+Època 13 | TrainLoss=0.2603 | ValLoss=0.2601 | ValAcc=0.8538 | ValF1=0.8644
+Època 14 | TrainLoss=0.2570 | ValLoss=0.2590 | ValAcc=0.8600 | ValF1=0.8692
+Època 15 | TrainLoss=0.2549 | ValLoss=0.2532 | ValAcc=0.8539 | ValF1=0.8656
+Època 16 | TrainLoss=0.2516 | ValLoss=0.2508 | ValAcc=0.8591 | ValF1=0.8695
+Època 17 | TrainLoss=0.2497 | ValLoss=0.2507 | ValAcc=0.8549 | ValF1=0.8663
+Època 18 | TrainLoss=0.2476 | ValLoss=0.2494 | ValAcc=0.8633 | ValF1=0.8722
+Època 19 | TrainLoss=0.2439 | ValLoss=0.2451 | ValAcc=0.8636 | ValF1=0.8732
+Època 20 | TrainLoss=0.2424 | ValLoss=0.2424 | ValAcc=0.8627 | ValF1=0.8729
+Època 21 | TrainLoss=0.2408 | ValLoss=0.2410 | ValAcc=0.8601 | ValF1=0.8713
+Època 22 | TrainLoss=0.2387 | ValLoss=0.2427 | ValAcc=0.8694 | ValF1=0.8777
+Època 23 | TrainLoss=0.2362 | ValLoss=0.2444 | ValAcc=0.8740 | ValF1=0.8805
+Època 24 | TrainLoss=0.2347 | ValLoss=0.2382 | ValAcc=0.8631 | ValF1=0.8734
+Època 25 | TrainLoss=0.2338 | ValLoss=0.2410 | ValAcc=0.8515 | ValF1=0.8654
+Època 26 | TrainLoss=0.2323 | ValLoss=0.2381 | ValAcc=0.8754 | ValF1=0.8824
+Època 27 | TrainLoss=0.2306 | ValLoss=0.2381 | ValAcc=0.8739 | ValF1=0.8811
+Època 28 | TrainLoss=0.2299 | ValLoss=0.2358 | ValAcc=0.8642 | ValF1=0.8748
+Època 29 | TrainLoss=0.2270 | ValLoss=0.2352 | ValAcc=0.8786 | ValF1=0.8849
+Època 30 | TrainLoss=0.2269 | ValLoss=0.2345 | ValAcc=0.8746 | ValF1=0.8819
+✅ Restored best model (val_loss=0.2345)
+
+======================================================================
+🔍 BUSCANDO THRESHOLD ÓPTIMO (criterio: f1_min_sens)
+======================================================================
+
+✅ THRESHOLD ÓPTIMO ENCONTRADO:
+  Threshold:      0.649
+  Accuracy:       0.8915
+  F1-Score:       0.8926
+  Sensibilidad:   0.8918
+  Especificidad:  0.8912
+
+  Matriu de confusió:
+    [[9518 1162]
+ [1182 9738]]
+======================================================================
+
+
+✅ RESULTATS FOLD 5:
+  Pacient: chb21
+  Threshold: 0.649
+  Accuracy:      0.9091
+  F1-Score:      0.5624
+  Sensibilitat:  0.5577 ⭐
+  Especificitat: 0.9502
+
+  Matriu de confusió:
+    [[12679   664]
+ [  690   870]]
+
+======================================================================
+📊 RESULTATS AGREGATS K-FOLD LOPO
+======================================================================
+
+📋 RESULTADOS POR PACIENTE:
+test_patient  optimal_threshold  accuracy_opt   f1_opt  sensitivity_opt  specificity_opt
+       chb15           0.770707      0.762575 0.137800         0.075748         0.992099
+       chb10           0.665657      0.678121 0.424258         0.953977         0.638959
+       chb04           0.665657      0.850229 0.564048         0.707888         0.872801
+       chb09           0.447475      0.285625 0.241202         1.000000         0.194126
+       chb21           0.649495      0.909146 0.562379         0.557692         0.950236
+
+📈 ESTADÍSTICAS PROMEDIO (±std):
+  Accuracy:      0.6971 ± 0.2462
+  F1-Score:      0.3859 ± 0.1916
+  Sensibilitat:  0.6591 ± 0.3729 ⭐
+  Especificitat: 0.7296 ± 0.3290
+  AUC:           0.8847 ± 0.0762
+
+📊 MEJORA CON THRESHOLD OPTIMIZADO:
+  Sensibilidad default: 0.7329
+  Sensibilidad optimiz: 0.6591
+  Mejora: +-7.4%
+
+💾 Resultats desats a: results/kfold_lopo_20260109_1555
+
+K-Fold fusion finalitzat.

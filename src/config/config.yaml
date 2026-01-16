@@ -1,0 +1,10 @@
+dataset_path: "/fhome/maed/EpilepsyDataSet"
+
+training:
+  epochs: 20
+  batch_size: 256
+  lr: 0.001
+
+model:
+  n_channels: 21
+  n_classes: 2

@@ -1,0 +1,400 @@
+========================================
+🧠 LSTM-LOPO TEMPORAL - INICIO
+========================================
+Fecha: dom 11 ene 2026 21:33:11 CET
+Node: etse-75-51
+GPU: 0
+
+Activant entorn virtual...
+
+📋 Configuración:
+  - Modelo: LSTM (2 capas, hidden_size=128)
+  - Pacientes test: chb10, chb04
+  - Estrategia: LOPO con temporalidad preservada
+  - Balance: Temporal undersample (sin shuffle)
+
+🚀 Iniciant LSTM-LOPO...
+
+======================================================================
+🧠 LSTM SEIZURE DETECTION - LOPO TEMPORAL
+   Modelo: LSTM bidireccional con atención temporal
+   Estrategia: Leave-One-Patient-Out con orden temporal preservado
+   Pacientes: chb10, chb04
+======================================================================
+
+======================================================================
+📊 ANÁLISIS DEL DATASET CHB-MIT
+======================================================================
+  Total pacientes:       24
+  Pediátricos:          23
+  Adultos:              1
+
+  Total horas EEG:      158.9 h
+  Total muestras:       571,905
+  Crisis totales:       86,672 ventanas (1444.5 min)
+  Ratio ictal/total:    15.155%
+======================================================================
+
+
+📋 PACIENTES SELECCIONADOS PARA LOPO:
+  Test 1: chb10 - 3,520 crisis (58.7 min)
+  Test 2: chb04 - 2,992 crisis (49.9 min)
+
+======================================================================
+🔄 TEST PATIENT 1/2: chb10
+======================================================================
+
+  TRAIN: 23 pacientes (excluyendo chb10)
+  TEST:  chb10
+
+======================================================================
+📂 CARGANDO DATOS - LOPO TEMPORAL CON TRANSICIONES
+======================================================================
+  ✓ chb01:  26,529 ventanas (7.4h) | Seizure: 3,480 (58.0min)
+  ✓ chb02:   9,153 ventanas (2.5h) | Seizure: 1,352 (22.5min)
+  ✓ chb03:  27,524 ventanas (7.6h) | Seizure: 3,160 (52.7min)
+  ✓ chb04:  21,860 ventanas (6.1h) | Seizure: 2,992 (49.9min)
+  ✓ chb05:  12,992 ventanas (3.6h) | Seizure: 4,424 (73.7min)
+  ✓ chb06:  47,370 ventanas (13.2h) | Seizure: 1,144 (19.1min)
+  ✓ chb07:  18,591 ventanas (5.2h) | Seizure: 2,576 (42.9min)
+  ✓ chb08:  15,700 ventanas (4.4h) | Seizure: 7,312 (121.9min)
+  ✓ chb09:  19,165 ventanas (5.3h) | Seizure: 2,176 (36.3min)
+  ✓ chb11:  10,959 ventanas (3.0h) | Seizure: 6,424 (107.1min)
+  ✓ chb12:  23,810 ventanas (6.6h) | Seizure: 7,696 (128.3min)
+  ✓ chb13:  27,583 ventanas (7.7h) | Seizure: 3,440 (57.3min)
+  ✓ chb14:  25,824 ventanas (7.2h) | Seizure: 1,288 (21.5min)
+  ✓ chb15:  62,984 ventanas (17.5h) | Seizure: 15,776 (262.9min)
+  ✓ chb16:  17,926 ventanas (5.0h) | Seizure:   488 (8.1min)
+  ✓ chb17:  12,665 ventanas (3.5h) | Seizure: 2,320 (38.7min)
+  ✓ chb18:  22,073 ventanas (6.1h) | Seizure: 2,488 (41.5min)
+  ✓ chb19:  11,988 ventanas (3.3h) | Seizure: 1,864 (31.1min)
+  ✓ chb20:  21,536 ventanas (6.0h) | Seizure: 2,288 (38.1min)
+  ✓ chb21:  14,903 ventanas (4.1h) | Seizure: 1,560 (26.0min)
+  ✓ chb22:  12,018 ventanas (3.3h) | Seizure: 1,608 (26.8min)
+  ✓ chb23:  34,736 ventanas (9.6h) | Seizure: 3,336 (55.6min)
+  ✓ chb24:  45,701 ventanas (12.7h) | Seizure: 3,960 (66.0min)
+
+  📊 TRAIN concatenado: (543590, 21, 128)
+     - Normal: 460,438 | Seizure: 83,152
+
+======================================================================
+⚖️  BALANCEO CON BLOQUES CONTIGUOS + TRANSICIONES
+======================================================================
+  📊 ANTES del balanceo:
+     - Normal (0):     460,438 (127.9h) | 84.7%
+     - Epilepsia (1):   83,152 (1385.9min) | 15.3%
+
+  🔍 Análisis de segmentos normales:
+     - Segmentos contiguos: 129
+     - Longitud promedio: 3569.3 ventanas
+
+  🔄 Transiciones detectadas:
+     - Inicios de crisis (0→1): 129
+     - Finales de crisis (1→0): 128
+     - Segmentos con/cerca transiciones: 129/129
+
+  ✅ Segmentos seleccionados:
+     - Total segmentos: 53
+     - Con transiciones: 52
+     - Sin transiciones: 1
+     - Ventanas totales: 249,456
+
+  📊 DESPUÉS del balanceo:
+     - Normal (0):     249,456 (69.3h) | 75.0%
+     - Epilepsia (1):   83,152 (1385.9min) | 25.0%
+     - Total:          332,608 (92.4h)
+
+  🔗 Continuidad y transiciones:
+     - Bloques continuos: 77
+     - Gaps en secuencia: 76
+     - Transiciones capturadas: 106
+======================================================================
+
+
+🔪 Split temporal ESTRICTO (val_ratio=0.15):
+   Train: ventanas [0 : 282717] (primeras en el tiempo)
+   Val:   ventanas [282717 : 332608] (últimas en el tiempo)
+   ⚠️  SIN SHUFFLE - orden temporal respetado
+
+📕 Cargando TEST:
+  ✓ chb10:  28,315 ventanas | Seizure: 3,520
+
+======================================================================
+📦 DATOS FINALES (ORDEN TEMPORAL + TRANSICIONES)
+======================================================================
+
+  🔵 TRAIN: (282717, 21, 128)
+     - Normal (0):     205,965 | 72.9%
+     - Epilepsia (1):   76,752 | 27.1%
+
+  🟢 VALIDATION: (49891, 21, 128)
+     - Normal (0):      43,491 | 87.2%
+     - Epilepsia (1):    6,400 | 12.8%
+
+  🔴 TEST (paciente no visto): (28315, 21, 128)
+     - Normal (0):      24,795 | 87.6%
+     - Epilepsia (1):    3,520 | 12.4%
+======================================================================
+
+
+  📦 DATOS CARGADOS:
+     TRAIN: (282717, 21, 128)
+     VAL:   (49891, 21, 128)
+     TEST:  (28315, 21, 128)
+
+  🏗️  ARQUITECTURA LSTM (MEJORADA):
+     - Input: [batch, 21, 128]
+     - LSTM hidden_size: 128
+     - LSTM layers: 2
+     - LSTM dropout: 0.4
+     - Classifier: 128 -> 64 -> 32 -> 2 (con dropout 0.5 y 0.4)
+     - Output: [batch, 2]
+
+  ⚖️  Class weights calculados:
+     Normal (0): 1.00
+     Seizure (1): 3.22
+     Ratio de peso: 3.22x (optimizado para F1)
+
+  🏋️  INICIANDO ENTRENAMIENTO...
+🖥️  Dispositiu d'entrenament: cuda
+⚖️  Class weights: [1.        3.2202158]
+🔧 Optimizer: Adam (lr=0.0002, weight_decay=5e-05)
+Època 01 | TrainLoss=0.3501 | ValLoss=0.3930 | ValAcc=0.8717 | ValF1=0.5393
+Època 02 | TrainLoss=0.1685 | ValLoss=0.3982 | ValAcc=0.8836 | ValF1=0.5636
+Època 03 | TrainLoss=0.1266 | ValLoss=0.4377 | ValAcc=0.8824 | ValF1=0.5785
+Època 04 | TrainLoss=0.1016 | ValLoss=0.5142 | ValAcc=0.8564 | ValF1=0.5418
+Època 05 | TrainLoss=0.0878 | ValLoss=0.4869 | ValAcc=0.8961 | ValF1=0.5454
+Època 06 | TrainLoss=0.0784 | ValLoss=0.6859 | ValAcc=0.8880 | ValF1=0.5208
+Època 07 | TrainLoss=0.0696 | ValLoss=0.5859 | ValAcc=0.8735 | ValF1=0.5424
+Època 08 | TrainLoss=0.0639 | ValLoss=0.7150 | ValAcc=0.8883 | ValF1=0.5450
+Època 09 | TrainLoss=0.0604 | ValLoss=0.7030 | ValAcc=0.8758 | ValF1=0.5300
+Època 10 | TrainLoss=0.0567 | ValLoss=0.6775 | ValAcc=0.8941 | ValF1=0.5346
+Època 11 | TrainLoss=0.0543 | ValLoss=0.7412 | ValAcc=0.8866 | ValF1=0.5235
+Època 12 | TrainLoss=0.0520 | ValLoss=0.7901 | ValAcc=0.8749 | ValF1=0.5190
+Època 13 | TrainLoss=0.0495 | ValLoss=0.7384 | ValAcc=0.8910 | ValF1=0.5211
+
+⚠️  Early stopping triggered at epoch 13
+✅ Restored best model (val_loss=0.3930)
+
+  🎯 EVALUACIÓN CON MÚLTIPLES THRESHOLDS:
+  =================================================================
+  Thresh=0.40 | Acc=0.819 | F1=0.546 | Prec=0.397 | Sens=0.875 | Spec=0.812
+  Thresh=0.50 | Acc=0.829 | F1=0.558 | Prec=0.411 | Sens=0.868 | Spec=0.823
+  Thresh=0.60 | Acc=0.838 | F1=0.570 | Prec=0.426 | Sens=0.862 | Spec=0.835
+  Thresh=0.70 | Acc=0.849 | F1=0.584 | Prec=0.444 | Sens=0.851 | Spec=0.849
+  Thresh=0.75 | Acc=0.855 | F1=0.591 | Prec=0.454 | Sens=0.844 | Spec=0.856
+  Thresh=0.80 | Acc=0.861 | F1=0.599 | Prec=0.466 | Sens=0.837 | Spec=0.864
+  =================================================================
+
+  ⭐ MEJOR THRESHOLD (máximo F1): 0.80
+     F1=0.5990 | Sens=0.8369 | Spec=0.8641
+
+✅ RESULTADOS PACIENTE chb10:
+  Threshold óptimo: 0.800
+  Accuracy:         0.8607
+  F1-Score:         0.5990
+  Sensibilidad:     0.8369 ⭐
+  Especificidad:    0.8641
+  AUC:              0.9220
+
+  Matriz de confusión:
+    [[21425  3370]
+ [  574  2946]]
+
+💾 Resultados guardados en: results/lstm_lopo_20260111_2133/patient_chb10
+
+======================================================================
+🔄 TEST PATIENT 2/2: chb04
+======================================================================
+
+  TRAIN: 23 pacientes (excluyendo chb04)
+  TEST:  chb04
+
+======================================================================
+📂 CARGANDO DATOS - LOPO TEMPORAL CON TRANSICIONES
+======================================================================
+  ✓ chb01:  26,529 ventanas (7.4h) | Seizure: 3,480 (58.0min)
+  ✓ chb02:   9,153 ventanas (2.5h) | Seizure: 1,352 (22.5min)
+  ✓ chb03:  27,524 ventanas (7.6h) | Seizure: 3,160 (52.7min)
+  ✓ chb05:  12,992 ventanas (3.6h) | Seizure: 4,424 (73.7min)
+  ✓ chb06:  47,370 ventanas (13.2h) | Seizure: 1,144 (19.1min)
+  ✓ chb07:  18,591 ventanas (5.2h) | Seizure: 2,576 (42.9min)
+  ✓ chb08:  15,700 ventanas (4.4h) | Seizure: 7,312 (121.9min)
+  ✓ chb09:  19,165 ventanas (5.3h) | Seizure: 2,176 (36.3min)
+  ✓ chb10:  28,315 ventanas (7.9h) | Seizure: 3,520 (58.7min)
+  ✓ chb11:  10,959 ventanas (3.0h) | Seizure: 6,424 (107.1min)
+  ✓ chb12:  23,810 ventanas (6.6h) | Seizure: 7,696 (128.3min)
+  ✓ chb13:  27,583 ventanas (7.7h) | Seizure: 3,440 (57.3min)
+  ✓ chb14:  25,824 ventanas (7.2h) | Seizure: 1,288 (21.5min)
+  ✓ chb15:  62,984 ventanas (17.5h) | Seizure: 15,776 (262.9min)
+  ✓ chb16:  17,926 ventanas (5.0h) | Seizure:   488 (8.1min)
+  ✓ chb17:  12,665 ventanas (3.5h) | Seizure: 2,320 (38.7min)
+  ✓ chb18:  22,073 ventanas (6.1h) | Seizure: 2,488 (41.5min)
+  ✓ chb19:  11,988 ventanas (3.3h) | Seizure: 1,864 (31.1min)
+  ✓ chb20:  21,536 ventanas (6.0h) | Seizure: 2,288 (38.1min)
+  ✓ chb21:  14,903 ventanas (4.1h) | Seizure: 1,560 (26.0min)
+  ✓ chb22:  12,018 ventanas (3.3h) | Seizure: 1,608 (26.8min)
+  ✓ chb23:  34,736 ventanas (9.6h) | Seizure: 3,336 (55.6min)
+  ✓ chb24:  45,701 ventanas (12.7h) | Seizure: 3,960 (66.0min)
+
+  📊 TRAIN concatenado: (550045, 21, 128)
+     - Normal: 466,365 | Seizure: 83,680
+
+======================================================================
+⚖️  BALANCEO CON BLOQUES CONTIGUOS + TRANSICIONES
+======================================================================
+  📊 ANTES del balanceo:
+     - Normal (0):     466,365 (129.5h) | 84.8%
+     - Epilepsia (1):   83,680 (1394.7min) | 15.2%
+
+  🔍 Análisis de segmentos normales:
+     - Segmentos contiguos: 133
+     - Longitud promedio: 3506.5 ventanas
+
+  🔄 Transiciones detectadas:
+     - Inicios de crisis (0→1): 133
+     - Finales de crisis (1→0): 132
+     - Segmentos con/cerca transiciones: 133/133
+
+  ✅ Segmentos seleccionados:
+     - Total segmentos: 56
+     - Con transiciones: 55
+     - Sin transiciones: 1
+     - Ventanas totales: 251,040
+
+  📊 DESPUÉS del balanceo:
+     - Normal (0):     251,040 (69.7h) | 75.0%
+     - Epilepsia (1):   83,680 (1394.7min) | 25.0%
+     - Total:          334,720 (93.0h)
+
+  🔗 Continuidad y transiciones:
+     - Bloques continuos: 78
+     - Gaps en secuencia: 77
+     - Transiciones capturadas: 112
+======================================================================
+
+
+🔪 Split temporal ESTRICTO (val_ratio=0.15):
+   Train: ventanas [0 : 284512] (primeras en el tiempo)
+   Val:   ventanas [284512 : 334720] (últimas en el tiempo)
+   ⚠️  SIN SHUFFLE - orden temporal respetado
+
+📕 Cargando TEST:
+  ✓ chb04:  21,860 ventanas | Seizure: 2,992
+
+======================================================================
+📦 DATOS FINALES (ORDEN TEMPORAL + TRANSICIONES)
+======================================================================
+
+  🔵 TRAIN: (284512, 21, 128)
+     - Normal (0):     207,232 | 72.8%
+     - Epilepsia (1):   77,280 | 27.2%
+
+  🟢 VALIDATION: (50208, 21, 128)
+     - Normal (0):      43,808 | 87.3%
+     - Epilepsia (1):    6,400 | 12.7%
+
+  🔴 TEST (paciente no visto): (21860, 21, 128)
+     - Normal (0):      18,868 | 86.3%
+     - Epilepsia (1):    2,992 | 13.7%
+======================================================================
+
+
+  📦 DATOS CARGADOS:
+     TRAIN: (284512, 21, 128)
+     VAL:   (50208, 21, 128)
+     TEST:  (21860, 21, 128)
+
+  🏗️  ARQUITECTURA LSTM (MEJORADA):
+     - Input: [batch, 21, 128]
+     - LSTM hidden_size: 128
+     - LSTM layers: 2
+     - LSTM dropout: 0.4
+     - Classifier: 128 -> 64 -> 32 -> 2 (con dropout 0.5 y 0.4)
+     - Output: [batch, 2]
+
+  ⚖️  Class weights calculados:
+     Normal (0): 1.00
+     Seizure (1): 3.22
+     Ratio de peso: 3.22x (optimizado para F1)
+
+  🏋️  INICIANDO ENTRENAMIENTO...
+🖥️  Dispositiu d'entrenament: cuda
+⚖️  Class weights: [1.       3.217888]
+🔧 Optimizer: Adam (lr=0.0002, weight_decay=5e-05)
+Època 01 | TrainLoss=0.3634 | ValLoss=0.4162 | ValAcc=0.8678 | ValF1=0.5264
+Època 02 | TrainLoss=0.1830 | ValLoss=0.3959 | ValAcc=0.8805 | ValF1=0.5499
+Època 03 | TrainLoss=0.1362 | ValLoss=0.4441 | ValAcc=0.8841 | ValF1=0.5608
+Època 04 | TrainLoss=0.1103 | ValLoss=0.4547 | ValAcc=0.8974 | ValF1=0.5552
+Època 05 | TrainLoss=0.0937 | ValLoss=0.4783 | ValAcc=0.8780 | ValF1=0.5389
+Època 06 | TrainLoss=0.0827 | ValLoss=0.6559 | ValAcc=0.8981 | ValF1=0.5449
+Època 07 | TrainLoss=0.0737 | ValLoss=0.5964 | ValAcc=0.9044 | ValF1=0.5683
+Època 08 | TrainLoss=0.0691 | ValLoss=0.6490 | ValAcc=0.9069 | ValF1=0.5505
+Època 09 | TrainLoss=0.0639 | ValLoss=0.5529 | ValAcc=0.9041 | ValF1=0.6046
+Època 10 | TrainLoss=0.0607 | ValLoss=0.6630 | ValAcc=0.9055 | ValF1=0.5574
+Època 11 | TrainLoss=0.0564 | ValLoss=0.6336 | ValAcc=0.9126 | ValF1=0.5815
+Època 12 | TrainLoss=0.0548 | ValLoss=0.7246 | ValAcc=0.9096 | ValF1=0.5614
+Època 13 | TrainLoss=0.0517 | ValLoss=0.7067 | ValAcc=0.9114 | ValF1=0.5851
+Època 14 | TrainLoss=0.0490 | ValLoss=0.6637 | ValAcc=0.9129 | ValF1=0.5833
+
+⚠️  Early stopping triggered at epoch 14
+✅ Restored best model (val_loss=0.3959)
+
+  🎯 EVALUACIÓN CON MÚLTIPLES THRESHOLDS:
+  =================================================================
+  Thresh=0.40 | Acc=0.887 | F1=0.645 | Prec=0.567 | Sens=0.747 | Spec=0.910
+  Thresh=0.50 | Acc=0.892 | F1=0.652 | Prec=0.582 | Sens=0.739 | Spec=0.916
+  Thresh=0.60 | Acc=0.895 | F1=0.656 | Prec=0.597 | Sens=0.729 | Spec=0.922
+  Thresh=0.70 | Acc=0.899 | F1=0.658 | Prec=0.611 | Sens=0.713 | Spec=0.928
+  Thresh=0.75 | Acc=0.900 | F1=0.659 | Prec=0.619 | Sens=0.704 | Spec=0.931
+  Thresh=0.80 | Acc=0.902 | F1=0.661 | Prec=0.630 | Sens=0.695 | Spec=0.935
+  =================================================================
+
+  ⭐ MEJOR THRESHOLD (máximo F1): 0.80
+     F1=0.6606 | Sens=0.6945 | Spec=0.9353
+
+✅ RESULTADOS PACIENTE chb04:
+  Threshold óptimo: 0.800
+  Accuracy:         0.9023
+  F1-Score:         0.6606
+  Sensibilidad:     0.6945 ⭐
+  Especificidad:    0.9353
+  AUC:              0.9111
+
+  Matriz de confusión:
+    [[17647  1221]
+ [  914  2078]]
+
+💾 Resultados guardados en: results/lstm_lopo_20260111_2133/patient_chb04
+
+======================================================================
+📊 RESULTADOS AGREGADOS LSTM-LOPO TEMPORAL
+======================================================================
+
+📋 RESULTADOS POR PACIENTE:
+test_patient  optimal_threshold  accuracy_opt   f1_opt  sensitivity_opt  specificity_opt      auc
+       chb10                0.8      0.860710 0.599024         0.836932         0.864086 0.922026
+       chb04                0.8      0.902333 0.660626         0.694519         0.935287 0.911090
+
+📈 ESTADÍSTICAS PROMEDIO (±std):
+  Accuracy:      0.8815 ± 0.0294
+  F1-Score:      0.6298 ± 0.0436
+  Sensibilidad:  0.7657 ± 0.1007 ⭐
+  Especificidad: 0.8997 ± 0.0503
+  AUC:           0.9166 ± 0.0077
+
+📊 MEJORA CON THRESHOLD OPTIMIZADO:
+  Sensibilidad default: 0.8039
+  Sensibilidad optimiz: 0.7657
+  Mejora: -3.8%
+
+💾 Resultados guardados en: results/lstm_lopo_20260111_2133
+
+======================================================================
+✅ EXPERIMENTO LSTM-LOPO COMPLETADO
+======================================================================
+
+========================================
+✅ LSTM-LOPO TEMPORAL - FINALITZAT
+========================================
+Fecha: dom 11 ene 2026 22:08:40 CET
